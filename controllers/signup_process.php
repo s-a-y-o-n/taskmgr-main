@@ -48,12 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $pdo->prepare("INSERT INTO users (name, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
             $stmt->execute([$name, $email, $hashedPassword]);
             
-            // Create welcome notification
-            $userId = $pdo->lastInsertId();
-            $welcomeMsg = "Welcome to TaskManager, " . $name . "!";
-            $stmt = $pdo->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
-            $stmt->execute([$userId, $welcomeMsg]);
-            
             $_SESSION['success'] = "Account created successfully! Please login.";
             header("Location: ../view/login.php");
             exit();

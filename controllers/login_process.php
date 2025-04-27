@@ -37,11 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute([$token, $user['id']]);
             }
 
-            // Create welcome notification
-            $welcomeMsg = "Welcome back, " . $user['name'] . "!";
-            $stmt = $pdo->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
-            $stmt->execute([$user['id'], $welcomeMsg]);
-
             header("Location: ../view/home.php");
             exit();
         } else {
